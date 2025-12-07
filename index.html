@@ -8,11 +8,56 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="card">
-      <legend class="legend">My Library</legend>
-      <div id="library"></div>
-      <button onclick="addBookToLibrary()">Add Book</button>
-
+    <div class="table">
+      <div class="card">
+        <legend class="legend">My Library</legend>
+        <div id="library"></div>
+        <button class="add" onclick="Book(), newCard()">Add Book</button>
+        <button class="books" onclick="addFirst(), newCard()">Add Fellowship</button>
+        <button class="books" onclick="addSecond(), newCard()">Add Two Towers</button>
+        <button class="books" onclick="addThird(), newCard()">Add Return</button>
+        <button class="books" onclick="addFourth(), newCard()">Add Shadow</button>
+        <button class="books" onclick="addFifth(), newCard()">Add Kings</button>
+        <button class="books" onclick="addSixth(), newCard()">Add Hereticus</button>
+        <button class="books" onclick="addSeventh(), newCard()">Add Malleus</button>
+        <button class="books" onclick="addEighth(), newCard()">Add Xenos</button>
+      </div>
+      <table>
+        <dialog id="favDialog">
+          <form>
+            <p>
+              <label>Add a book to your library:
+                <div>
+                  <input type="text" name="book-title" id="book-title"/>
+                  <label for="book-title">Title </label>
+                </div>
+                <div>
+                  <input type="text" name="author" id="author" />
+                  <label for="author">Author </label>
+                </div>
+                <div>
+                  <input type="text" name="pages" id="pages" />
+                  <label for="pages">Number of Pages </label>
+                </div>
+                <div>
+                  <input type="radio" name="read-yn" id="read-yn" />
+                  <label for="read-yn">Book Read </label>
+                </div>
+              </label>
+            </p>
+            <div>
+              <button value="cancel" formmethod="dialog">Cancel</button>
+              <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+          </form>
+        </dialog>
+      </table>
+      <p>
+        <button id="showDialog" class="books">New Book</button>
+      </p>
+      <output></output>
+      <div class="new-cards">
+      </div>
     </div>
   <script src="script.js" defer></script>
   </body>
