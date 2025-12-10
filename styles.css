@@ -23,16 +23,18 @@
 
 .new-card {
   border: 1px solid gray;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   margin: 15px;
+  align-items: center;
 }
 
 .new-cards {
   display: flex;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 70vw;
   text-align: center;
+  
 }
 
 .library {
@@ -42,14 +44,23 @@
 ::backdrop {
   background-image: linear-gradient(
     45deg,
-    magenta,
-    rebeccapurple,
-    dodgerblue,
-    green
+    red
   );
-  opacity: 0.75;
+  opacity: 0.65;
 }
 
 #favDialog {
   border: 1px solid gray;
+}
+
+form {
+  border: 1px solid black;
+}
+
+output {
+  border: 1px solid black;
+}
+
+remove-button {
+  
 }
