@@ -1,5 +1,5 @@
 var myLibrary = [];
-var library = [];
+const library = [];
 
 
 
@@ -137,16 +137,16 @@ function getID() {
     event.preventDefault();
   })
   myLibrary.push(value1, value2, value3, value4);
-  myLibrary.push(self.crypto.randomUUID());
-  
-  library.push(myLibrary);
-  myLibrary.length = 4;
-  
-  
+ 
+  library.push(value1, value2, value3, value4, self.crypto.randomUUID());
+
+
+
+
   dialogInput1.value = '';
   dialogInput2.value = '';
   dialogInput3.value = '';
-  
   console.log(library);
   console.log(myLibrary);
 }
+
