@@ -69,22 +69,46 @@ function addEighth() {
   myLibrary.length = 1;
 }
 
+function removeItem(value) {
+  
+  
+  console.log(library);
+  index = library.indexOf(value);
+  console.log(index);
+  if (index >= -1) {
+    library.splice(index, 1)
+  }
+  //not working
+  console.log(library);
+  console.log(myLibrary);
+}
+
+
 function newCard() {
   
   const newDiv = document.querySelector(".new-cards");
   const content = document.createElement("div");
   const remove = document.createElement("button");
+  
   content.classList.add("new-card");
   content.textContent = myLibrary;
   newDiv.appendChild(content);
 
   remove.classList.add("remove-button");
   remove.textContent = 'Remove';
-  remove.addEventListener('click', () => {
-    alert('button clicked');//this is where code will go to remove book from library
-  });
-  content.appendChild(remove);
+  
 
+  //assigned randomUUID to data index of new-cards from html
+  console.log(newDiv.dataset.indexNumber = self.crypto.randomUUID());
+
+  remove.addEventListener('click', () => {
+    removeItem();
+    //this is where code will go to remove book from library
+
+  });
+  
+  content.appendChild(remove);
+  
   myLibrary = [];
 }
 
@@ -127,21 +151,14 @@ confirmBtn.addEventListener("click", (event) => {
 function getID() {
   
   radio()
-
   const value1 = dialogInput1.value;
   const value2 = dialogInput2.value;
   const value3 = dialogInput3.value;
-
-
   confirmBtn.addEventListener('confirm', function(event) {
     event.preventDefault();
   })
   myLibrary.push(value1, value2, value3, value4);
- 
   library.push(value1, value2, value3, value4, self.crypto.randomUUID());
-
-
-
 
   dialogInput1.value = '';
   dialogInput2.value = '';
