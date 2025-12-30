@@ -1,5 +1,5 @@
 var myLibrary = [];
-const library = [];
+var library = [];
 
 
 
@@ -17,100 +17,159 @@ let bookInfo = [
 let currentIndex = 0;
 
 function Book() {
-  
   if (currentIndex < bookInfo.length) {
-    myLibrary.push(bookInfo[currentIndex], self.crypto.randomUUID());
+    const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
+    const book = {
+      title,
+      author,
+      pages,
+      read,
+      id: self.crypto.randomUUID()
+    };
+    library.push(book);
+    newCard(book);
     currentIndex++;
   } else {
     currentIndex = 0;
   }
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
 }
 
 function addFirst() {
-  myLibrary.push(bookInfo[0], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[0][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
 function addSecond() {
-  myLibrary.push(bookInfo[1], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[1][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
+
 function addThird() {
-  myLibrary.push(bookInfo[2], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[2][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
+
 function addFourth() {
-  myLibrary.push(bookInfo[3], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[3][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
+
 function addFifth() {
-  myLibrary.push(bookInfo[4], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[4][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
 function addSixth() {
-  myLibrary.push(bookInfo[5], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[5][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
 function addSeventh() {
-  myLibrary.push(bookInfo[6], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[6][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
 function addEighth() {
-  myLibrary.push(bookInfo[7], self.crypto.randomUUID());
-  library.push(myLibrary.join());
-  myLibrary.length = 1;
+  const [title, author, pages, read] = bookInfo[7][0].split(', ');
+  const book = {
+    title,
+    author,
+    pages,
+    read,
+    id: self.crypto.randomUUID()
+  };
+  library.push(book);
+  newCard(book);
 }
 
-function removeItem(value) {
-  
-  
-  console.log(library);
-  index = library.indexOf(value);
-  console.log(index);
-  if (index >= -1) {
-    library.splice(index, 1)
+function removeItem(uuid) {
+  const index = library.findIndex(book => book.id === uuid);
+  if (index !== -1) {
+    library.splice(index, 1);
+    const card = document.querySelector(`[data-index-number="${uuid}"]`);
+    if (card) card.remove();
   }
-  //not working
-  console.log(library);
-  console.log(myLibrary);
 }
 
 
-function newCard() {
+function newCard(book) {
   
   const newDiv = document.querySelector(".new-cards");
   const content = document.createElement("div");
   const remove = document.createElement("button");
   
   content.classList.add("new-card");
-  content.textContent = myLibrary;
+
+  if (book.title) {
+    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+  }
+
+  content.setAttribute("data-index-number", book.id);
   newDiv.appendChild(content);
 
   remove.classList.add("remove-button");
   remove.textContent = 'Remove';
   
-
-  //assigned randomUUID to data index of new-cards from html
-  console.log(newDiv.dataset.indexNumber = self.crypto.randomUUID());
-
   remove.addEventListener('click', () => {
-    removeItem();
-    //this is where code will go to remove book from library
-
+    removeItem(book.id);
   });
-  
+
   content.appendChild(remove);
-  
-  myLibrary = [];
 }
+
+
 
 const showButton = document.getElementById("showDialog");
 const favDialog = document.getElementById("favDialog");
@@ -135,30 +194,35 @@ function radio() {
   document.getElementById('read-n').checked = false;
 }
 
-
 showButton.addEventListener("click", () => {
   favDialog.showModal();
 });
-
 
 confirmBtn.addEventListener("click", (event) => {
   event.preventDefault();
   favDialog.close(selectEl.value);
 });
 
-
-
+//need to refactor so my values get added as an object to library
 function getID() {
   
   radio()
   const value1 = dialogInput1.value;
   const value2 = dialogInput2.value;
   const value3 = dialogInput3.value;
-  confirmBtn.addEventListener('confirm', function(event) {
-    event.preventDefault();
-  })
-  myLibrary.push(value1, value2, value3, value4);
-  library.push(value1, value2, value3, value4, self.crypto.randomUUID());
+
+  const book = {
+    title: value1,
+    author: value2,
+    pages: value3,
+    read: value4,
+    id: self.crypto.randomUUID()
+  };
+  
+  myLibrary.push(book);
+  library.push(book);
+
+  newCard(book);
 
   dialogInput1.value = '';
   dialogInput2.value = '';

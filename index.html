@@ -12,15 +12,15 @@
       <div class="card">
         <legend class="legend">My Library</legend>
         <div id="library"></div>
-        <button class="add" onclick="Book(), newCard()">Add Book</button>
-        <button class="books" onclick="addFirst(), newCard()">Add Fellowship</button>
-        <button class="books" onclick="addSecond(), newCard()">Add Two Towers</button>
-        <button class="books" onclick="addThird(), newCard()">Add Return</button>
-        <button class="books" onclick="addFourth(), newCard()">Add Shadow</button>
-        <button class="books" onclick="addFifth(), newCard()">Add Kings</button>
-        <button class="books" onclick="addSixth(), newCard()">Add Hereticus</button>
-        <button class="books" onclick="addSeventh(), newCard()">Add Malleus</button>
-        <button class="books" onclick="addEighth(), newCard()">Add Xenos</button>
+        <button class="add" onclick="Book()">Add Book</button>
+        <button class="books" onclick="addFirst()">Add Fellowship</button>
+        <button class="books" onclick="addSecond()">Add Two Towers</button>
+        <button class="books" onclick="addThird()">Add Return</button>
+        <button class="books" onclick="addFourth()">Add Shadow</button>
+        <button class="books" onclick="addFifth()">Add Kings</button>
+        <button class="books" onclick="addSixth()">Add Hereticus</button>
+        <button class="books" onclick="addSeventh()">Add Malleus</button>
+        <button class="books" onclick="addEighth()">Add Xenos</button>
       </div>
       <table>
         <dialog id="favDialog">
@@ -40,17 +40,17 @@
                 <label for="pages">Number of Pages </label>
               </div>
               <div>
-                <input type="radio" name="read-y" id="read-y"  />
+                <input type="radio" name="read-status" id="read-y"  />
                 <label for="read-y">Read Book</label>
                 
-                <input type="radio" name="read-y" id="read-n"  />
+                <input type="radio" name="read-status" id="read-n"  />
                 <label for="read-n">Did Not Read Book</label>
               </div>
               
             </p>
             <div>
               <button value="cancel" formmethod="dialog">Cancel</button>
-              <button id="confirmBtn" value="default" onclick="getID(), newCard()">Confirm</button>
+              <button id="confirmBtn" value="default" onclick="getID()">Confirm</button>
             </div>
           </form>
         </dialog>
@@ -58,7 +58,7 @@
       <p>
         <button id="showDialog" class="books">New Book</button>
       </p>
-      <div id="new-cards" class="new-cards" data-index-number="5">
+      <div id="new-cards" class="new-cards" data-index-number="">
       </div>
     </div>
   <script src="script.js" defer></script>
