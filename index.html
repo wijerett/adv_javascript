@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    
     <title>Document</title>
   </head>
   <body>
     <div class="table">
       <div class="card">
-        <legend class="legend">My Library</legend>
         <div id="library"></div>
-        <button class="add" onclick="Book()">Add Book</button>
+        <button class="add" onclick="bookCycle()">Add Book</button>
         <button class="books" onclick="addFirst()">Add Fellowship</button>
         <button class="books" onclick="addSecond()">Add Two Towers</button>
         <button class="books" onclick="addThird()">Add Return</button>
@@ -22,43 +20,38 @@
         <button class="books" onclick="addSeventh()">Add Malleus</button>
         <button class="books" onclick="addEighth()">Add Xenos</button>
       </div>
-      <table>
-        <dialog id="favDialog">
-          <form id="getFormInfo">
-            <p id="new-book">
-             
-              <div>
-                <input type="text" name="book-title" id="book-title"/>
-                <label for="book-title">Title </label>
-              </div>
-              <div>
-                <input type="text" name="author" id="author" />
-                <label for="author">Author </label>
-              </div>
-              <div>
-                <input type="text" name="pages" id="pages" />
-                <label for="pages">Number of Pages </label>
-              </div>
-              <div>
-                <input type="radio" name="read-status" id="read-y"  />
-                <label for="read-y">Read Book</label>
-                
-                <input type="radio" name="read-status" id="read-n"  />
-                <label for="read-n">Did Not Read Book</label>
-              </div>
-              
-            </p>
+      <dialog id="favDialog">
+        <form id="getFormInfo">
+          <p id="new-book">
             <div>
-              <button value="cancel" formmethod="dialog">Cancel</button>
-              <button id="confirmBtn" value="default" onclick="getID()">Confirm</button>
+              <input type="text" name="book-title" id="book-title"/>
+              <label for="book-title">Title </label>
             </div>
-          </form>
-        </dialog>
-      </table>
-      <p>
+            <div>
+              <input type="text" name="author" id="author" />
+              <label for="author">Author </label>
+            </div>
+            <div>
+              <input type="text" name="pages" id="pages" />
+              <label for="pages">Number of Pages </label>
+            </div>
+            <div>
+              <input type="radio" name="read-status" id="read-y"  />
+              <label for="read-y">The book was read</label>  
+              <input type="radio" name="read-status" id="read-n"  />
+              <label for="read-n">The book was not read</label>
+            </div>
+          </p>
+          <div>
+            <button id="confirmBtn" value="default" onclick="getID()">Confirm</button>
+            <button value="cancel" formmethod="dialog">Cancel</button>
+          </div>
+        </form>
+      </dialog>
+      <p class="new-buttonbox">
         <button id="showDialog" class="books">New Book</button>
       </p>
-      <div id="new-cards" class="new-cards" data-index-number="">
+      <div id="new-cards" class="new-cards">
       </div>
     </div>
   <script src="script.js" defer></script>

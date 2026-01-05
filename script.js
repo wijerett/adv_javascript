@@ -4,28 +4,30 @@ var library = [];
 
 
 let bookInfo = [
-  ["The Fellowship of the Ring, JRR, 560 pages, Did Read"],
-  ["Two Towers, JRR, 700 pages, Did Not Read"],
-  ["Return of the King, JRR, 690 pages, Did Not Read"],
-  ["Shadow of what once was, Sanderson, 500 pages, Did Read"],
-  ["The way of Kings, Sanderson, 900 pages, Did Read"],
-  ["Hereticus, Abnett, 900 pages, Did Read"],
-  ["Malleus, Abnett, 800 pages, Did Read"],
-  ["Xenos, Abnett, 750 pages, Did Read"]
+  ["The Fellowship of the Ring, JRR, 560 pages, The Book was read"],
+  ["Two Towers, JRR, 700 pages, The Book was not read"],
+  ["Return of the King, JRR, 690 pages, The Book was not read"],
+  ["Shadow of what once was, Sanderson, 500 pages, The Book was read"],
+  ["The way of Kings, Sanderson, 900 pages, The Book was read"],
+  ["Hereticus, Abnett, 900 pages, The Book was read"],
+  ["Malleus, Abnett, 800 pages, The Book was read"],
+  ["Xenos, Abnett, 750 pages, The Book was read"]
 ]
 
 let currentIndex = 0;
 
-function Book() {
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.id = self.crypto.randomUUID();
+}
+
+function bookCycle() {
   if (currentIndex < bookInfo.length) {
     const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
-    const book = {
-      title,
-      author,
-      pages,
-      read,
-      id: self.crypto.randomUUID()
-    };
+    const book = new Book(title, author, pages, read);
     library.push(book);
     newCard(book);
     currentIndex++;
@@ -36,100 +38,52 @@ function Book() {
 
 function addFirst() {
   const [title, author, pages, read] = bookInfo[0][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 function addSecond() {
   const [title, author, pages, read] = bookInfo[1][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 
 function addThird() {
   const [title, author, pages, read] = bookInfo[2][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 
 function addFourth() {
   const [title, author, pages, read] = bookInfo[3][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 
 function addFifth() {
   const [title, author, pages, read] = bookInfo[4][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 function addSixth() {
   const [title, author, pages, read] = bookInfo[5][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 function addSeventh() {
   const [title, author, pages, read] = bookInfo[6][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
 function addEighth() {
   const [title, author, pages, read] = bookInfo[7][0].split(', ');
-  const book = {
-    title,
-    author,
-    pages,
-    read,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(title, author, pages, read);
   library.push(book);
   newCard(book);
 }
@@ -143,14 +97,26 @@ function removeItem(uuid) {
   }
 }
 
+Book.prototype.toggleStatus = function () {
+  this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
+};
 
 function newCard(book) {
-  
   const newDiv = document.querySelector(".new-cards");
   const content = document.createElement("div");
   const remove = document.createElement("button");
-  
+  const changeRead = document.createElement("button");
+
+  changeRead.classList.add("change-read-button");
+  changeRead.textContent = 'Change read status';
   content.classList.add("new-card");
+
+  function updateCardText() {
+    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+    content.appendChild(changeRead);
+    content.appendChild(remove);
+  }
+  updateCardText();
 
   if (book.title) {
     content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
@@ -162,12 +128,18 @@ function newCard(book) {
   remove.classList.add("remove-button");
   remove.textContent = 'Remove';
   
+  changeRead.addEventListener('click', () => {
+    book.toggleStatus();
+    updateCardText();
+  });
   remove.addEventListener('click', () => {
     removeItem(book.id);
   });
 
+  content.appendChild(changeRead);
   content.appendChild(remove);
 }
+
 
 
 
@@ -183,8 +155,8 @@ const dialogInput3 = document.getElementById('pages');
 
 
 let value4 = "";
-function radio() {
-
+function Radio() {
+  
   if(document.getElementById('read-y').checked) {
     value4 = "The Book was read"
   } else if (document.getElementById('read-n').checked) {
@@ -206,11 +178,13 @@ confirmBtn.addEventListener("click", (event) => {
 //need to refactor so my values get added as an object to library
 function getID() {
   
-  radio()
+  Radio()
   const value1 = dialogInput1.value;
   const value2 = dialogInput2.value;
   const value3 = dialogInput3.value;
-
+  if (dialogInput1.value, dialogInput2.value, dialogInput3.value === "") {
+    return
+  };
   const book = {
     title: value1,
     author: value2,
