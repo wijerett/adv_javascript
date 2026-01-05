@@ -182,16 +182,10 @@ function getID() {
   const value1 = dialogInput1.value;
   const value2 = dialogInput2.value;
   const value3 = dialogInput3.value;
-  if (dialogInput1.value, dialogInput2.value, dialogInput3.value === "") {
+  if (value1 === "" || value2 === "" || value3 === "") {
     return
   };
-  const book = {
-    title: value1,
-    author: value2,
-    pages: value3,
-    read: value4,
-    id: self.crypto.randomUUID()
-  };
+  const book = new Book(value1, value2, value3, value4);
   
   myLibrary.push(book);
   library.push(book);
