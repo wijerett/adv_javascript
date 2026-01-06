@@ -101,15 +101,19 @@ Book.prototype.toggleStatus = function () {
   this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
 };
 
+
 function newCard(book) {
+
   const newDiv = document.querySelector(".new-cards");
   const content = document.createElement("div");
   const remove = document.createElement("button");
   const changeRead = document.createElement("button");
-
   changeRead.classList.add("change-read-button");
   changeRead.textContent = 'Change read status';
   content.classList.add("new-card");
+  remove.classList.add("remove-button");
+  remove.textContent = 'Remove';
+
 
   function updateCardText() {
     content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
@@ -125,9 +129,6 @@ function newCard(book) {
   content.setAttribute("data-index-number", book.id);
   newDiv.appendChild(content);
 
-  remove.classList.add("remove-button");
-  remove.textContent = 'Remove';
-  
   changeRead.addEventListener('click', () => {
     book.toggleStatus();
     updateCardText();

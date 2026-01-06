@@ -1,3 +1,23 @@
+@font-face {
+  font-family: 'Cantarell';
+  src: url('/Fonts/Cantarell-Regular.woff2') format('woff2'),
+  url('/Fonts/Cantarell-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('/Fonts/Pacifico.woff2') format('woff2'),
+  url('/Fonts/Pacifico.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 html {
   background-color: black;
 }
@@ -19,6 +39,9 @@ html {
   width: 160px;
   margin: 10px;
   background-color: #FFA07A;
+  font-family: 'Cantarell', Arial, sans-serif;
+  font-size: 18px;
+  border-radius: 5%;
 }
 
 .new-buttonbox {
@@ -33,22 +56,29 @@ html {
 }
 
 .new-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid gray;
-  width: 150px;
-  height: 170px;
+  width: 200px;
+  height: 225px;
   margin: 15px;
   align-items: center;
   background-color: #FFA07A;
 }
 
 .remove-button {
-  background-color: #B0C4DE;
+  background-color: red;
+  font-size: 14px;
+  width: 90px;
+  margin: 5px;
 }
 
 .change-read-button {
   background-color: #B0C4DE;
-  width: 120px;
+  width: 90px;
   height: 40px;
+  font-size: 14px;
+  margin: 5px;
 }
 
 .new-cards {
@@ -56,6 +86,17 @@ html {
   flex-wrap: wrap;
   width: 70vw;
   text-align: center;
+  font-family: 'Pacifico', Arial, sans-serif;
+}
+
+input {
+  background-color: #778899;
+}
+
+input:focus {
+  outline: none;
+  padding: 0;
+  background-color: #20B2AA;
 }
 
 .library {
