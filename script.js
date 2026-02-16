@@ -16,129 +16,142 @@ let bookInfo = [
 
 let currentIndex = 0;
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = self.crypto.randomUUID();
-}
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = self.crypto.randomUUID();
+  }
 
-function bookCycle() {
-  if (currentIndex < bookInfo.length) {
-    const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
+  bookCycle() {
+    if (currentIndex < bookInfo.length) {
+      const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
+      const book = new Book(title, author, pages, read);
+      library.push(book);
+      newCard(book);
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+  }
+
+  addFirst() {
+    const [title, author, pages, read] = bookInfo[0][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
     newCard(book);
-    currentIndex++;
-  } else {
-    currentIndex = 0;
   }
-}
 
-function addFirst() {
-  const [title, author, pages, read] = bookInfo[0][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-function addSecond() {
-  const [title, author, pages, read] = bookInfo[1][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-
-function addThird() {
-  const [title, author, pages, read] = bookInfo[2][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-
-function addFourth() {
-  const [title, author, pages, read] = bookInfo[3][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-
-function addFifth() {
-  const [title, author, pages, read] = bookInfo[4][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-function addSixth() {
-  const [title, author, pages, read] = bookInfo[5][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-function addSeventh() {
-  const [title, author, pages, read] = bookInfo[6][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-function addEighth() {
-  const [title, author, pages, read] = bookInfo[7][0].split(', ');
-  const book = new Book(title, author, pages, read);
-  library.push(book);
-  newCard(book);
-}
-
-function removeItem(uuid) {
-  const index = library.findIndex(book => book.id === uuid);
-  if (index !== -1) {
-    library.splice(index, 1);
-    const card = document.querySelector(`[data-index-number="${uuid}"]`);
-    if (card) card.remove();
+  addSecond() {
+    const [title, author, pages, read] = bookInfo[1][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
   }
+
+  addThird() {
+    const [title, author, pages, read] = bookInfo[2][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  addFourth() {
+    const [title, author, pages, read] = bookInfo[3][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  addFifth() {
+    const [title, author, pages, read] = bookInfo[4][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  addSixth() {
+    const [title, author, pages, read] = bookInfo[5][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  addSeventh() {
+    const [title, author, pages, read] = bookInfo[6][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  addEighth() {
+    const [title, author, pages, read] = bookInfo[7][0].split(', ');
+    const book = new Book(title, author, pages, read);
+    library.push(book);
+    newCard(book);
+  }
+
+  removeItem(uuid) {
+    const index = library.findIndex(book => book.id === uuid);
+    if (index !== -1) {
+      library.splice(index, 1);
+      const card = document.querySelector(`[data-index-number="${uuid}"]`);
+      if (card) card.remove();
+    }
+  }
+  
 }
+console.log(new Book());
+
 
 Book.prototype.toggleStatus = function () {
   this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
 };
 
 
-function newCard(book) {
+class newCard {
+  constructor(book) {
+    const newDiv = document.querySelector(".new-cards");
+    const content = document.createElement("div");
+    const remove = document.createElement("button");
+    const changeRead = document.createElement("button");
+    changeRead.classList.add("change-read-button");
+    changeRead.textContent = 'Change read status';
+    content.classList.add("new-card");
+    remove.classList.add("remove-button");
+    remove.textContent = 'Remove';
+    book = Book();
+    title = book.title;
+  }
+  //I need to access book attributes from Book to newCard class
+    updateCardText() {
+      content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+      content.appendChild(changeRead);
+      content.appendChild(remove);
+    }
+    //new updateCardText();
 
-  const newDiv = document.querySelector(".new-cards");
-  const content = document.createElement("div");
-  const remove = document.createElement("button");
-  const changeRead = document.createElement("button");
-  changeRead.classList.add("change-read-button");
-  changeRead.textContent = 'Change read status';
-  content.classList.add("new-card");
-  remove.classList.add("remove-button");
-  remove.textContent = 'Remove';
+    if (title) {
+      content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+    }
 
+    content.setAttribute("data-index-number", book.id);
+    newDiv.appendChild(content);
 
-  function updateCardText() {
-    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+    changeRead.addEventListener('click', () => {
+      book.toggleStatus();
+      updateCardText();
+    });
+    remove.addEventListener('click', () => {
+      removeItem(book.id);
+    });
+
     content.appendChild(changeRead);
     content.appendChild(remove);
-  }
-  updateCardText();
+  
 
-  if (book.title) {
-    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
-  }
-
-  content.setAttribute("data-index-number", book.id);
-  newDiv.appendChild(content);
-
-  changeRead.addEventListener('click', () => {
-    book.toggleStatus();
-    updateCardText();
-  });
-  remove.addEventListener('click', () => {
-    removeItem(book.id);
-  });
-
-  content.appendChild(changeRead);
-  content.appendChild(remove);
 }
 
 
