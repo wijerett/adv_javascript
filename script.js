@@ -16,6 +16,7 @@ let bookInfo = [
 
 let currentIndex = 0;
 
+
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -23,6 +24,7 @@ class Book {
     this.pages = pages;
     this.read = read;
     this.id = self.crypto.randomUUID();
+
   }
 
   bookCycle() {
@@ -30,7 +32,7 @@ class Book {
       const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
       const book = new Book(title, author, pages, read);
       library.push(book);
-      newCard(book);
+      //newCard(book);
       currentIndex++;
     } else {
       currentIndex = 0;
@@ -41,56 +43,56 @@ class Book {
     const [title, author, pages, read] = bookInfo[0][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addSecond() {
     const [title, author, pages, read] = bookInfo[1][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addThird() {
     const [title, author, pages, read] = bookInfo[2][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addFourth() {
     const [title, author, pages, read] = bookInfo[3][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addFifth() {
     const [title, author, pages, read] = bookInfo[4][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addSixth() {
     const [title, author, pages, read] = bookInfo[5][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addSeventh() {
     const [title, author, pages, read] = bookInfo[6][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   addEighth() {
     const [title, author, pages, read] = bookInfo[7][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    newCard(book);
+    //newCard(book);
   }
 
   removeItem(uuid) {
@@ -101,18 +103,8 @@ class Book {
       if (card) card.remove();
     }
   }
-  
-}
-console.log(new Book());
 
-
-Book.prototype.toggleStatus = function () {
-  this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
-};
-
-
-class newCard {
-  constructor(book) {
+  tileSet() {
     const newDiv = document.querySelector(".new-cards");
     const content = document.createElement("div");
     const remove = document.createElement("button");
@@ -122,23 +114,18 @@ class newCard {
     content.classList.add("new-card");
     remove.classList.add("remove-button");
     remove.textContent = 'Remove';
-    book = Book();
-    title = book.title;
-  }
-  //I need to access book attributes from Book to newCard class
-    updateCardText() {
-      content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
-      content.appendChild(changeRead);
-      content.appendChild(remove);
-    }
+    content.setAttribute("data-index-number", book.id);
+    newDiv.appendChild(content);
+
+    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
+    content.appendChild(changeRead);
+    content.appendChild(remove);
+    
     //new updateCardText();
 
     if (title) {
-      content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
-    }
-
-    content.setAttribute("data-index-number", book.id);
-    newDiv.appendChild(content);
+      content.textContent = `${title}, ${author}, ${pages}, ${read}`;
+    };
 
     changeRead.addEventListener('click', () => {
       book.toggleStatus();
@@ -150,12 +137,18 @@ class newCard {
 
     content.appendChild(changeRead);
     content.appendChild(remove);
-  
 
+  }
 }
+  //I need to access book attributes from Book to newCard class
+let book = new Book();
+book.bookCycle();
+book.addFirst();
 
 
-
+Book.prototype.toggleStatus = function () {
+  this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
+};
 
 const showButton = document.getElementById("showDialog");
 const favDialog = document.getElementById("favDialog");
@@ -169,47 +162,68 @@ const dialogInput3 = document.getElementById('pages');
 
 
 let value4 = "";
-function Radio() {
-  
-  if(document.getElementById('read-y').checked) {
-    value4 = "The Book was read"
-  } else if (document.getElementById('read-n').checked) {
-    value4 = "The Book was not read"
+class Radio {
+  constructor(value4) {
+    this.value4 = value4;
   }
-  document.getElementById('read-y').checked = false;
-  document.getElementById('read-n').checked = false;
-}
-
-showButton.addEventListener("click", () => {
-  favDialog.showModal();
-});
-
-confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  favDialog.close(selectEl.value);
-});
-
-//need to refactor so my values get added as an object to library
-function getID() {
+  setStatus() {
+    if(document.getElementById('read-y').checked) {
+      value4 = "The Book was read"
+    } else if (document.getElementById('read-n').checked) {
+      value4 = "The Book was not read"
+    }
+    document.getElementById('read-y').checked = false;
+    document.getElementById('read-n').checked = false;
   
-  Radio()
-  const value1 = dialogInput1.value;
-  const value2 = dialogInput2.value;
-  const value3 = dialogInput3.value;
-  if (value1 === "" || value2 === "" || value3 === "") {
-    return
+
+    showButton.addEventListener("click", () => {
+      favDialog.showModal();
+    });
+
+    confirmBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      favDialog.close(selectEl.value);
+    });
   };
-  const book = new Book(value1, value2, value3, value4);
-  
-  myLibrary.push(book);
-  library.push(book);
+}
+const readstatus = new Radio();
+readstatus.setStatus();
 
-  newCard(book);
 
-  dialogInput1.value = '';
-  dialogInput2.value = '';
-  dialogInput3.value = '';
-  console.log(library);
-  console.log(myLibrary);
+class getID {
+  constructor(value1, value2, value3) {
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+  }
+    //Radio();
+    getValue() {
+      const value1 = dialogInput1.value;
+      const value2 = dialogInput2.value;
+      const value3 = dialogInput3.value;
+      if (value1 === "" || value2 === "" || value3 === "") {
+        return
+      };
+      const book = new Book(value1, value2, value3, value4);
+      
+      myLibrary.push(book);
+      library.push(book);
+
+      
+
+      dialogInput1.value = '';
+      dialogInput2.value = '';
+      dialogInput3.value = '';
+      console.log(library);
+      console.log(myLibrary);
+  };
 }
 
+let id = new getID();
+id.getValue();
+
+confirmBtn.addEventListener("click", () => {
+  id.getValue();
+  readstatus.setStatus();
+  book.tileSet();
+})
