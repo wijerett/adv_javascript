@@ -27,76 +27,77 @@ class Book {
 
   }
 
-  bookCycle() {
+  static bookCycle() {
     if (currentIndex < bookInfo.length) {
       const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
       const book = new Book(title, author, pages, read);
       library.push(book);
-      //newCard(book);
+    
       currentIndex++;
     } else {
       currentIndex = 0;
     }
+    book.tileSet();
   }
 
-  addFirst() {
+  static addFirst() {
     const [title, author, pages, read] = bookInfo[0][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addSecond() {
+  static addSecond() {
     const [title, author, pages, read] = bookInfo[1][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addThird() {
+  static addThird() {
     const [title, author, pages, read] = bookInfo[2][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addFourth() {
+  static addFourth() {
     const [title, author, pages, read] = bookInfo[3][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addFifth() {
+  static addFifth() {
     const [title, author, pages, read] = bookInfo[4][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addSixth() {
+  static addSixth() {
     const [title, author, pages, read] = bookInfo[5][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addSeventh() {
+  static addSeventh() {
     const [title, author, pages, read] = bookInfo[6][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
-  addEighth() {
+  static addEighth() {
     const [title, author, pages, read] = bookInfo[7][0].split(', ');
     const book = new Book(title, author, pages, read);
     library.push(book);
-    //newCard(book);
+    book.tileSet();
   }
 
   removeItem(uuid) {
-    const index = library.findIndex(book => book.id === uuid);
+    const index = library.findIndex(book => this.id === uuid);
     if (index !== -1) {
       library.splice(index, 1);
       const card = document.querySelector(`[data-index-number="${uuid}"]`);
@@ -114,41 +115,42 @@ class Book {
     content.classList.add("new-card");
     remove.classList.add("remove-button");
     remove.textContent = 'Remove';
-    content.setAttribute("data-index-number", book.id);
+    content.setAttribute("data-index-number", this.id);
     newDiv.appendChild(content);
-
-    content.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.read}`;
-    content.appendChild(changeRead);
-    content.appendChild(remove);
     
-    //new updateCardText();
-
-    if (title) {
-      content.textContent = `${title}, ${author}, ${pages}, ${read}`;
+    const updateCardText = () => {
+      content.textContent = `${this.title}, ${this.author}, ${this.pages}, ${this.read}`;
+      content.appendChild(changeRead);
+      content.appendChild(remove);
     };
+    updateCardText();
+
 
     changeRead.addEventListener('click', () => {
-      book.toggleStatus();
+      this.toggleStatus();
       updateCardText();
     });
     remove.addEventListener('click', () => {
-      removeItem(book.id);
+      this.removeItem(this.id);
     });
-
-    content.appendChild(changeRead);
-    content.appendChild(remove);
-
+  }
+  removeItem(uuid) {
+    const index = library.findIndex(book => book.id === uuid);
+    if (index !== -1) {
+      library.splice(index, 1);
+      const card = document.querySelector(`[data-index-number="${uuid}"]`);
+      if (card) card.remove();
+    }
+  }
+  toggleStatus() {
+    this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
   }
 }
-  //I need to access book attributes from Book to newCard class
 let book = new Book();
-book.bookCycle();
-book.addFirst();
+
+  //I need to access book attributes from Book to newCard class
 
 
-Book.prototype.toggleStatus = function () {
-  this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
-};
 
 const showButton = document.getElementById("showDialog");
 const favDialog = document.getElementById("favDialog");
@@ -197,33 +199,36 @@ class getID {
     this.value3 = value3;
   }
     //Radio();
-    getValue() {
-      const value1 = dialogInput1.value;
-      const value2 = dialogInput2.value;
-      const value3 = dialogInput3.value;
-      if (value1 === "" || value2 === "" || value3 === "") {
-        return
-      };
-      const book = new Book(value1, value2, value3, value4);
+  getValue() {
+    const value1 = dialogInput1.value;
+    const value2 = dialogInput2.value;
+    const value3 = dialogInput3.value;
+    if (value1 === "" || value2 === "" || value3 === "") {
+      return
+    };
+    const book = new Book(value1, value2, value3, value4);
       
+    myLibrary.push(book);
+    library.push(book);
+    book.tileSet();
+    dialogInput1.value = '';
+    dialogInput2.value = '';
+    dialogInput3.value = '';
+    console.log(library);
+    console.log(myLibrary);
+  };
+  Confirm(value1, value2, value3, value4) {
+    confirmBtn.addEventListener("click", () => {
+      const book = new Book(value1, value2, value3, value4);
+      id.getValue();
+      readstatus.setStatus();
       myLibrary.push(book);
       library.push(book);
-
-      
-
-      dialogInput1.value = '';
-      dialogInput2.value = '';
-      dialogInput3.value = '';
-      console.log(library);
-      console.log(myLibrary);
+    });
   };
 }
 
 let id = new getID();
 id.getValue();
+id.Confirm();
 
-confirmBtn.addEventListener("click", () => {
-  id.getValue();
-  readstatus.setStatus();
-  book.tileSet();
-})
