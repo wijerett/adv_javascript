@@ -32,12 +32,11 @@ class Book {
       const [title, author, pages, read] = bookInfo[currentIndex][0].split(', ');
       const book = new Book(title, author, pages, read);
       library.push(book);
-    
+      book.tileSet();
       currentIndex++;
     } else {
       currentIndex = 0;
     }
-    book.tileSet();
   }
 
   static addFirst() {
@@ -96,14 +95,8 @@ class Book {
     book.tileSet();
   }
 
-  removeItem(uuid) {
-    const index = library.findIndex(book => this.id === uuid);
-    if (index !== -1) {
-      library.splice(index, 1);
-      const card = document.querySelector(`[data-index-number="${uuid}"]`);
-      if (card) card.remove();
-    }
-  }
+
+  
 
   tileSet() {
     const newDiv = document.querySelector(".new-cards");
