@@ -124,8 +124,8 @@ class Book {
     this.read = (this.read === "The Book was read") ? "The Book was not read" : "The Book was read";
   }
 }
-let book = new Book();
 
+let book = new Book();
 
 class getID {
   constructor(value1, value2, value3) {
@@ -133,8 +133,17 @@ class getID {
     this.value2 = value2;
     this.value3 = value3;
   }
-    //Radio();
+  //Radio();
   getValue() {
+
+    if(document.getElementById('read-y').checked) {
+      value4 = "The book was read";
+    } else if (document.getElementById('read-n').checked) {
+      value4 = "The book was not read";
+    } else {
+      value4 = "";
+    }
+
     const value1 = dialogInput1.value;
     const value2 = dialogInput2.value;
     const value3 = dialogInput3.value;
@@ -149,21 +158,12 @@ class getID {
     dialogInput1.value = '';
     dialogInput2.value = '';
     dialogInput3.value = '';
+    document.getElementById('read-y').checked = false;
+    document.getElementById('read-n').checked = false;
     console.log(library);
     console.log(myLibrary);
   };
-
-  Cancel() {
-    cancel.addEventListener("click", () => {
-      dialogInput1.value = '';
-      dialogInput2.value = '';
-      dialogInput3.value = '';
-      favDialog.close(selectEl.value);
-    });
-  }
-
 };
-
 
 const showButton = document.getElementById("showDialog");
 const favDialog = document.getElementById("favDialog");
@@ -175,9 +175,17 @@ const dialogInput2 = document.getElementById('author');
 const dialogInput3 = document.getElementById('pages');
 const cancel = document.getElementById('cancel');
 
+cancel.addEventListener("click", (event) => {
+    event.preventDefault();
+    favDialog.close();
+    dialogInput1.value = '';
+    dialogInput2.value = '';
+    dialogInput3.value = '';
+    document.getElementById('read-y').checked = false;
+    document.getElementById('read-n').checked = false;
+});
 
-let id = new getID();
-
+const id = new getID();
 let value4 = "";
 
 class Radio {
@@ -196,10 +204,8 @@ class Radio {
     document.getElementById('read-y').checked = false;
     document.getElementById('read-n').checked = false;
     showButton.addEventListener("click", () => {
-      
       favDialog.showModal();
     });
-
     confirmBtn.addEventListener("click", (event) => {
       event.preventDefault();
       function validator() {
@@ -222,30 +228,14 @@ class Radio {
         return true;
       };
       if (!validator()) return;
-      //myLibrary.push(book);
-      //library.push(book);
       id.getValue();
-      //Cancel();
-      //const book = new Book(value1, value2, value3, value4);
-      //getValue();
-      //readstatus.setStatus();
-
-      favDialog.close(selectEl.value);
-      
+      favDialog.close();
       dialogInput1.value = '';
       dialogInput2.value = '';
       dialogInput3.value = '';
-
     });
   };
 }
 const readstatus = new Radio();
 readstatus.setStatus();
-
-
-
-//let id = new getID();
-//id.getValue();
-//id.Confirm();
-//id.Cancel();
 
